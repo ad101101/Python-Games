@@ -1,0 +1,94 @@
+
+#Aditya Srivastava
+#This is Imposter Game where some people have the word while some are imposter
+import random
+
+#These are my categories with words that the user can get
+animals=["dogs", "cats", "pelican", "elephant","snake"]
+people=["Lebron James", "Steph Curry", "Dwayne the Rock Johnson","Elon Musk", 
+"Donlad Trump"]
+food=["ham","gum","hotdog","nuggets", "burger"]
+print("Welcome, the categories are Animals, People, and Food")
+
+#asking the user what category they want
+player=0
+imposter=0
+choice=input("What cateogry: ")
+#if choice!="Animals"  and choice!="People" and choice!="Food":
+if choice not in ("Animals", "People", "Food"):
+    print("Error")
+    exit()
+
+status=0
+
+print("Only 3-10 people can play")
+people_count=int(input("How many people are playing: "))
+if people_count<3 or people_count>10:
+    print("Error")
+    print("Only 3-10 people can play")
+    exit()
+
+#Picking the word
+if choice=="Animals":
+    animal_random  = random.choice(animals)
+    random_animal=[animal_random, "Imposter"]
+    status=1
+elif choice=="People":
+    people_random= random.choice(people)
+    random_people=[people_random,"Imposter"]
+    status=2
+elif choice=="Food":
+    food_random= random.choice(food)
+    random_food=[food_random, "Imposter"]
+    status=3
+
+
+#Now this is where the computer tells the user the word or they are Imposter
+array=[]
+if status==1:
+    for index in range(0,people_count):
+            r_animal=random.choice(random_animal)
+            print("Enter when ready click enter after you got your word")
+            question=input("Your word is")
+            print(r_animal)
+            if r_animal=="Imposter":
+                #this is to check how many imposters there were in the game
+                imposter=imposter+1
+                
+               
+            next=input("Click enter for next person:  ")
+            for i in range(0,50):
+               print("  ")
+
+                
+
+if status == 2:
+    for index in range(0,people_count):
+            r_people=random.choice(random_people)
+            print("Enter when ready click enter after you got your word")
+            question=input("Your word is")
+            print(r_people)
+            if r_people=="Imposter":
+                imposter=imposter+1
+            next=input("Click enter for next person:  ")
+            for i in range(0,50):
+                print("  ") 
+        
+if status==3:
+    for index in range(0,people_count):
+            r_food=random.choice(random_food)
+            print("Enter when ready click enter after you got your word")
+            question=input("Your word is")
+            print(r_food)
+            if r_food=="Imposter":
+                imposter=imposter+1
+            next=input("Click enter for next person:  ")
+            for i in range(0,50):
+                print("  ") 
+print("Now discuss to find out the impsoters")              
+guess=str(input("How many imposters are there:  "))
+if guess==str(imposter):
+    print("Correct")
+    
+else:
+    print("Not correct there were", imposter, "imposters.")
