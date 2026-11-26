@@ -1,2 +1,2 @@
-these are fun games that was created using python
+A collection of fun games created using Python
 by Aditya Srivastava
