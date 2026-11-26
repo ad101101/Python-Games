@@ -1,0 +1,469 @@
+#Tic Tac Toe
+#You have to type in the letters that correspond to the tile on the Tic Tac Toe
+#ex: user can type TL or tl if they choose to move top left
+#win by getting 3 of the same letter vertically, horizontally, or diagonally
+#Aditya Srivastava
+
+
+import random
+
+#all the possible tiles the users can type
+moves = ["tl","tm","tr","ml","mm","mr","bl","bm","br"]
+
+#title of the game
+print("Tic Tac Toe by Aditya Srivastava")
+
+print("\n")
+
+
+
+#show the user what to type into the game to play
+print(" TL  | TM | TR  ")
+print("_____|____|_____ ")
+print(" ML  | MM | MR  ")
+print("_____|____|_____ ")
+print(" BL  | BM | BR  ")
+print("     |    |      ")
+#players
+name_1 = input("Please enter player name: ")
+name_2 = input("Please enter player name: ")
+#entrance
+print("Welcome "+ name_1 + " and " + name_2 +"! I am choosing who will go first")
+#making a list, so the computer can randomize the name
+players = [name_1,name_2]
+
+#Deciding player 1 and player 2
+player_1 = random.choice(players)
+players.remove(player_1)
+# player 2 is the player that the computer did not choose
+player_2 = random.choice(players)
+
+#Choosing player 1 and player 2
+print("Player 1: ", player_1)
+print("Player 2: ", player_2)
+# this is used in the while loop
+choose_player_1 = player_1
+choose_player_2 = player_2
+while True:
+    
+    #asking player_1
+    choose_letters = input("\nDoes "+ choose_player_1  + " want to be X or O: ")
+    
+    if choose_letters == "X" or choose_letters =="x":
+        print(choose_player_1  + " is X")
+        print(choose_player_2 + " is O")
+        choose_player_1 = "X"
+        choose_player_2 = "O"
+        #used to address the correct players in the game
+        new_name_1 = player_1
+        new_name_2 = player_2
+        break
+    elif choose_letters == "O" or choose_letters =="o":
+        print(choose_player_1 + " is O")
+        print(choose_player_2 + " is X")
+        choose_player_1 = "O"
+        choose_player_2 = "X"
+        new_name_1 = player_1
+        new_name_2 = player_2
+        break
+
+    else:
+        print("Error! Only options: X or O")
+        print("Switching to other player")
+        if choose_player_1 == player_1:
+            choose_player_1 = player_2
+            choose_player_2 = player_1
+            new_name_1 = player_2
+            new_name_2 = player_1
+        else:
+            choose_player_1 = player_1
+            choose_player_2 = player_2
+            new_name_1 = player_1
+            new_name_2 = player_2
+            #this is why the variables are used, so player 1 and player 2 switch
+            # if a player does not type X or O
+
+
+#Starting game
+print("\nlet's begin! type the letters to play")
+
+print("     |    |   ")
+print("_____|____|_____ ")
+print("     |    |      ")
+print("_____|____|_____ ")
+print("     |    |     ")
+print("     |    |      ")
+
+
+
+#used to save the moves for both players
+first_player_moves = []
+second_player_moves = []
+
+#different ways to win
+top_row_winning_moves = ["tl", "tm","tr"]
+middle_row_winning_moves = ["ml","mm","mr"]
+bottom_row_winning_moves = ["bl","bm","br"]
+left_column_winning_moves = ["tl","ml","bl"]
+middle_column_winning_moves = ["tm","mm","bm"]
+right_column_winning_moves = ["tr","mr","br"]
+left_diagonal_winning_moves = ["tl","mm","br"]
+right_diagonal_winning_moves = ["tr","mm","bl"]
+
+
+
+#have to use one letter, so that it fits within the boxes printed
+n = choose_player_1
+r = choose_player_2
+while True:
+  
+    #this var is going to be used later, but this resets the var
+    second_player = "placeholder"
+    #instead of checking every turn, it checks if player 2 wins after 3 tiles
+    if len(moves) <= 6:
+       
+        #checking to see if the player has the right 3 tiles to win
+        if set(top_row_winning_moves) <= set(second_player_moves):
+            print(new_name_2 + " has won with the top row!")
+            break
+        elif set(middle_row_winning_moves) <= set(second_player_moves):
+            print(new_name_2 + " has won with the middle row!")
+            break
+        elif set(bottom_row_winning_moves) <= set(second_player_moves):
+            print(new_name_2 + " has won with the bottom row!")
+            break
+        elif set(left_column_winning_moves) <= set(second_player_moves):
+            print(new_name_2 + " has won with the left column!")
+            break
+        elif set(middle_column_winning_moves) <= set(second_player_moves):
+            print(new_name_2 + " has won with the middle column!")
+            break
+        elif set(right_column_winning_moves) <= set(second_player_moves):
+            print(new_name_2 + " has won with the right column!")
+            break
+        elif set(left_diagonal_winning_moves) <= set(second_player_moves):
+            print(new_name_2 + " has won with the diagonal!")
+            break
+        elif set(right_diagonal_winning_moves) <= set(second_player_moves):
+            print(new_name_2 + " has won with the diagonal!")
+            break
+    #asking where first player will move, and making sure it fits in moves
+    first_player = input(new_name_1 + " Where do you want to move: ")
+    if first_player.lower() in (moves):
+        moves_lowercase = first_player.lower()
+        #add first player's choice to their list
+        first_player_moves.append(moves_lowercase)
+        moves.remove(moves_lowercase)
+        #making their moves all lowercase to code it easier
+        if moves_lowercase[0] == "t":
+            #if player 1 wants to move in one of the top lines
+            if moves_lowercase[1] == "l":
+                #player 1 chooses top left
+                print(n,"   |    |   ")
+                print("_____|____|_____ ")
+                print("     |    |      ")
+                print("_____|____|_____ ")
+                print("     |    |     ")
+                print("     |    |      ")
+                if set(top_row_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the top row!")
+                    break
+                elif set(left_column_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the left column!")
+                    break
+                elif len(moves) == 0:
+                    print("It's a tie")
+                    break
+                second_player = input(new_name_2 + " Where do you want to move: ")
+              
+               
+            elif moves_lowercase[1] == "m":
+                #player 1 chooses top middle
+                print("     |",n," |   ")
+                print("_____|____|_____ ")
+                print("     |    |      ")
+                print("_____|____|_____ ")
+                print("     |    |     ")
+                print("     |    |      ")
+                if set(top_row_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the top row!")
+                    break
+                elif set(middle_column_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the middle column!")
+                    break
+                elif len(moves) == 0:
+                    print("It's a tie")
+                    break
+                second_player = input(new_name_2 + " Where do you want to move: ")
+              
+                
+            else:
+                #player 1 chooses top right
+                print("     |    | ",n  )
+                print("_____|____|_____ ")
+                print("     |    |      ")
+                print("_____|____|_____ ")
+                print("     |    |     ")
+                print("     |    |      ")
+                if set(top_row_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the top row!")
+                    break
+                elif set(left_column_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the left column!")
+                    break
+                elif len(moves) == 0:
+                    print("It's a tie")
+                    break
+                second_player = input(new_name_2 + " Where do you want to move: ")
+              
+                
+                
+        elif moves_lowercase[0] == "m":
+            #if player 1 chooses middle row
+            if moves_lowercase[1] == "l" :
+                print( "     |    |   ")
+                print("_____|____|_____ ")
+                print(n+ "    |    |      ")
+                print("_____|____|_____ ")
+                print("     |    |     ")
+                print("     |    |      ")
+                if set(middle_row_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the middle row!")
+                    break
+                elif set(left_column_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the left column!")
+                    break
+                elif len(moves) == 0:
+                    print("It's a tie")
+                    break
+                second_player = input(new_name_2 + " Where do you want to move: ")
+              
+                
+            elif moves_lowercase[1] == "m":
+                #player 1 chooses the center
+                print("     |    |   ")
+                print("_____|____|_____ ")
+                print("     |"+n+"   |      ")
+                print("_____|____|_____ ")
+                print("     |    |     ")
+                print("     |    |      ")
+                if set(middle_row_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the middle row!")
+                    break
+                elif set(right_diagonal_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the diagonal!")
+                    break
+                elif set(left_diagonal_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the diagonal!")
+                    break
+                elif set(middle_column_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the middle column!")
+                    break
+                elif len(moves) == 0:
+                    print("It's a tie")
+                    break
+                second_player = input(new_name_2 + " Where do you want to move: ")
+              
+                
+            else:
+                # the player 1 chooses middle right
+                print("     |    | "  )
+                print("_____|____|_____ ")
+                print("     |    |"+n     )
+                print("_____|____|_____ ")
+                print("     |    |     ")
+                print("     |    |      ") 
+                if set(middle_row_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the middle row!")
+                    break
+                elif set(right_column_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the right column!")
+                    break
+                elif len(moves) == 0:
+                    print("It's a tie")
+                    break
+                second_player = input(new_name_2 + " Where do you want to move: ")
+              
+        else:
+            #player 1 chooses the bottom row
+            if moves_lowercase[1] == "l" :
+                print( "     |    |   ")
+                print("_____|____|_____ ")
+                print( "     |    |      ")
+                print("_____|____|_____ ")
+                print(n+"    |    |     ")
+                print("     |    |      ")
+                if set(bottom_row_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the bottom row!")
+                    break
+                elif set(left_column_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the left column!")
+                    break
+                elif set(right_diagonal_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the diagonal!")
+                    break
+                elif len(moves) == 0:
+                    print("It's a tie")
+                    break
+                second_player = input(new_name_2 + " Where do you want to move: ")
+              
+                
+            elif moves_lowercase[1] == "m":
+                #player 1 chooses the bottom center
+                print("     |    |   ")
+                print("_____|____|_____ ")
+                print("     |""    |      ")
+                print("_____|____|_____ ")
+                print("     |"+n+"   |     ")
+                print("     |    |      ")
+                if set(bottom_row_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the bottom row!")
+                    break
+                elif set(middle_column_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the middle column!")
+                    break
+                
+                elif len(moves) == 0:
+                    print("It's a tie")
+                    break
+                second_player = input(new_name_2 + " Where do you want to move: ")
+              
+                
+            else:
+                # the player 1 chooses middle right
+                print("     |    | "  )
+                print("_____|____|_____ ")
+                print("     |    |"     )
+                print("_____|____|_____ ")
+                print("     |    |",n     )
+                print("     |    |      ") 
+                if set(bottom_row_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the bottom row!")
+                    break
+                elif set(right_column_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the right column!")
+                    break
+                elif set(left_diagonal_winning_moves) <= set(first_player_moves):
+                    print(new_name_1 + " has won with the diagonal!")
+                    break
+                elif len(moves) == 0:
+                    print("It's a tie")
+                    break
+                second_player = input(new_name_2 + " Where do you want to move: ")
+   
+    #checking to make sure player 1 has gone so player 2 can go
+    if second_player != "placeholder":    
+        #this while loop is needed in order for the computer to keep asking
+        #for player 2's input until an appropriate one is given
+        while True:
+            
+            
+            if second_player.lower() in (moves):
+                second_moves_lowercase = second_player.lower()
+                #adds the tile second player's list
+                second_player_moves.append(second_moves_lowercase)
+                moves.remove(second_moves_lowercase)
+                #making their moves all lowercase to code it easier
+                if second_moves_lowercase[0] == "t":
+                    #if player 2 wants to move in one of the top lines
+                    if second_moves_lowercase[1] == "l":
+                        #player 2 chooses top left
+                        print(r,"   |    |   ")
+                        print("_____|____|_____ ")
+                        print("     |    |      ")
+                        print("_____|____|_____ ")
+                        print("     |    |     ")
+                        print("     |    |      ")
+                        break
+                    elif second_moves_lowercase[1] == "m":
+                        #player 2 chooses top middle
+                        print("     |",r," |   ")
+                        print("_____|____|_____ ")
+                        print("     |    |      ")
+                        print("_____|____|_____ ")
+                        print("     |    |     ")
+                        print("     |    |      ")
+                        break
+                    else:
+                        #player 2 chooses top right
+                        print("     |    | ",r  )
+                        print("_____|____|_____ ")
+                        print("     |    |      ")
+                        print("_____|____|_____ ")
+                        print("     |    |     ")
+                        print("     |    |      ")
+                        break
+                        
+                elif second_moves_lowercase[0] == "m":
+                    #player 2 chooses middle row
+                    if second_moves_lowercase[1] == "l":
+                        #player 2 chooses middle left
+                        print( "     |    |   ")
+                        print("_____|____|_____ ")
+                        print(r+ "    |    |      ")
+                        print("_____|____|_____ ")
+                        print("     |    |     ")
+                        print("     |    |      ")
+                        break
+                    elif second_moves_lowercase[1] == "m":
+                        #player 2 chooses the center
+                        print("     |    |   ")
+                        print("_____|____|_____ ")
+                        print("     |"+r+"   |      ")
+                        print("_____|____|_____ ")
+                        print("     |    |     ")
+                        print("     |    |      ")
+                        break
+                    else:
+                        # the player 2 chooses middle right
+                        print("     |    | "  )
+                        print("_____|____|_____ ")
+                        print("     |    |"+r     )
+                        print("_____|____|_____ ")
+                        print("     |    |     ")
+                        print("     |    |      ")
+                        break
+                else:
+                    #player 2 chooses the bottom row
+                    if second_moves_lowercase[1] == "l" :
+                        print( "     |    |   ")
+                        print("_____|____|_____ ")
+                        print( "     |    |      ")
+                        print("_____|____|_____ ")
+                        print(r+"    |    |     ")
+                        print("     |    |      ")
+                        break
+                    elif moves_lowercase[1] == "m":
+                        #player 2 chooses the bottom middle
+                        print("     |    |   ")
+                        print("_____|____|_____ ")
+                        print("     |""    |      ")
+                        print("_____|____|_____ ")
+                        print("     |"+r+"   |     ")
+                        print("     |    |      ")
+                        break
+                    else:
+                        # the player 2 chooses bottom right
+                        print("     |    | "  )
+                        print("_____|____|_____ ")
+                        print("     |    |"     )
+                        print("_____|____|_____ ")
+                        print("     |    |",r     )
+                        print("     |    |      ") 
+                        break
+            else:
+                #now if player 2 enters a wrong or an already used input
+                #an error message will print
+                print("ERROR wrong input! Remaining tiles are:", moves)
+            
+            second_player = input(new_name_2 + " Where do you want to move: ")
+              
+    
+                        
+    else:
+        #this will show if player 1 types a coordinate that is already used or 
+        # it is not one of the coordinates in the var moves
+        print("ERROR wrong input! Remaining tiles are:", moves)
+      
+    
+print("\nThanks for playing!")
