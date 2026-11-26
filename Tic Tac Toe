@@ -26,7 +26,7 @@ print(" BL  | BM | BR  ")
 print("     |    |      ")
 #players
 name_1 = input("Please enter player name: ")
-name_2 = input("Please enter player name: ")
+name_2 = input("Please enter different player name: ")
 #entrance
 print("Welcome "+ name_1 + " and " + name_2 +"! I am choosing who will go first")
 #making a list, so the computer can randomize the name
@@ -433,7 +433,7 @@ while True:
                         print(r+"    |    |     ")
                         print("     |    |      ")
                         break
-                    elif moves_lowercase[1] == "m":
+                    elif second_moves_lowercase[1] == "m":
                         #player 2 chooses the bottom middle
                         print("     |    |   ")
                         print("_____|____|_____ ")
